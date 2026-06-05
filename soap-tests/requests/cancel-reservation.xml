@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ser="http://service.cinematicketsoap.cinema.soap.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:CancelReservation>
+         <reservationId>R103</reservationId>
+      </ser:CancelReservation>
+   </soapenv:Body>
+</soapenv:Envelope>

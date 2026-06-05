@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+        name="TicketService"
+        targetNamespace="http://service.cinematicketsoap.cinema.soap.org/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://service.cinematicketsoap.cinema.soap.org/" elementFormDefault="qualified">
+            <xsd:complexType name="Movie">
+                <xsd:sequence>
+                    <xsd:element name="movieId" type="xsd:string"/>
+                    <xsd:element name="title" type="xsd:string"/>
+                    <xsd:element name="genre" type="xsd:string"/>
+                    <xsd:element name="duration" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="MovieList">
+                <xsd:sequence>
+                    <xsd:element name="Movie" type="tns:Movie" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ShowTime">
+                <xsd:sequence>
+                    <xsd:element name="showTimeId" type="xsd:string"/>
+                    <xsd:element name="movieId" type="xsd:string"/>
+                    <xsd:element name="time" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ShowTimeList">
+                <xsd:sequence>
+                    <xsd:element name="ShowTimes" type="tns:ShowTime" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="Reservation">
+                <xsd:sequence>
+                    <xsd:element name="reservationId" type="xsd:string"/>
+                    <xsd:element name="movieId" type="xsd:string"/>
+                    <xsd:element name="showTimeId" type="xsd:string"/>
+                    <xsd:element name="seatNumber" type="xsd:int"/>
+                    <xsd:element name="customerName" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ReservationResponse">
+                <xsd:sequence>
+                    <xsd:element name="reservationId" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="TicketServiceFault">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="message" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="GetMovies"/>
+            <xsd:element name="GetMoviesResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="movies" type="tns:MovieList"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="GetShowTimes">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="movieId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetShowTimesResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="showTimes" type="tns:ShowTimeList"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="ReserveSeat">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="movieId" type="xsd:string"/>
+                        <xsd:element name="showTimeId" type="xsd:string"/>
+                        <xsd:element name="seatNumber" type="xsd:int"/>
+                        <xsd:element name="customerName" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ReserveSeatResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="reservation" type="tns:ReservationResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="CancelReservation">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="reservationId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CancelReservationResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="cancellation" type="tns:ReservationResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="GetReservation">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="reservationId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetReservationResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="reservation" type="tns:Reservation"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="TicketServiceFault" type="tns:TicketServiceFault"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="GetMoviesRequest">
+        <wsdl:part name="parameters" element="tns:GetMovies"/>
+    </wsdl:message>
+    <wsdl:message name="GetMoviesResponse">
+        <wsdl:part name="parameters" element="tns:GetMoviesResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetShowTimesRequest">
+        <wsdl:part name="parameters" element="tns:GetShowTimes"/>
+    </wsdl:message>
+    <wsdl:message name="GetShowTimesResponse">
+        <wsdl:part name="parameters" element="tns:GetShowTimesResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="ReserveSeatRequest">
+        <wsdl:part name="parameters" element="tns:ReserveSeat"/>
+    </wsdl:message>
+    <wsdl:message name="ReserveSeatResponse">
+        <wsdl:part name="parameters" element="tns:ReserveSeatResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="CancelReservationRequest">
+        <wsdl:part name="parameters" element="tns:CancelReservation"/>
+    </wsdl:message>
+    <wsdl:message name="CancelReservationResponse">
+        <wsdl:part name="parameters" element="tns:CancelReservationResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetReservationRequest">
+        <wsdl:part name="parameters" element="tns:GetReservation"/>
+    </wsdl:message>
+    <wsdl:message name="GetReservationResponse">
+        <wsdl:part name="parameters" element="tns:GetReservationResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="TicketServiceFaultMessage">
+        <wsdl:part name="fault" element="tns:TicketServiceFault"/>
+    </wsdl:message>
+
+    <wsdl:portType name="TicketService">
+        <wsdl:operation name="GetMovies">
+            <wsdl:input message="tns:GetMoviesRequest"/>
+            <wsdl:output message="tns:GetMoviesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetShowTimes">
+            <wsdl:input message="tns:GetShowTimesRequest"/>
+            <wsdl:output message="tns:GetShowTimesResponse"/>
+            <wsdl:fault name="TicketServiceFault" message="tns:TicketServiceFaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ReserveSeat">
+            <wsdl:input message="tns:ReserveSeatRequest"/>
+            <wsdl:output message="tns:ReserveSeatResponse"/>
+            <wsdl:fault name="TicketServiceFault" message="tns:TicketServiceFaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="CancelReservation">
+            <wsdl:input message="tns:CancelReservationRequest"/>
+            <wsdl:output message="tns:CancelReservationResponse"/>
+            <wsdl:fault name="TicketServiceFault" message="tns:TicketServiceFaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetReservation">
+            <wsdl:input message="tns:GetReservationRequest"/>
+            <wsdl:output message="tns:GetReservationResponse"/>
+            <wsdl:fault name="TicketServiceFault" message="tns:TicketServiceFaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="TicketServiceSoapBinding" type="tns:TicketService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <wsdl:operation name="GetMovies">
+            <soap:operation soapAction="GetMovies"/>
+            <wsdl:input><soap:body use="literal"/></wsdl:input>
+            <wsdl:output><soap:body use="literal"/></wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetShowTimes">
+            <soap:operation soapAction="GetShowTimes"/>
+            <wsdl:input><soap:body use="literal"/></wsdl:input>
+            <wsdl:output><soap:body use="literal"/></wsdl:output>
+            <wsdl:fault name="TicketServiceFault"><soap:fault name="TicketServiceFault" use="literal"/></wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReserveSeat">
+            <soap:operation soapAction="ReserveSeat"/>
+            <wsdl:input><soap:body use="literal"/></wsdl:input>
+            <wsdl:output><soap:body use="literal"/></wsdl:output>
+            <wsdl:fault name="TicketServiceFault"><soap:fault name="TicketServiceFault" use="literal"/></wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="CancelReservation">
+            <soap:operation soapAction="CancelReservation"/>
+            <wsdl:input><soap:body use="literal"/></wsdl:input>
+            <wsdl:output><soap:body use="literal"/></wsdl:output>
+            <wsdl:fault name="TicketServiceFault"><soap:fault name="TicketServiceFault" use="literal"/></wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetReservation">
+            <soap:operation soapAction="GetReservation"/>
+            <wsdl:input><soap:body use="literal"/></wsdl:input>
+            <wsdl:output><soap:body use="literal"/></wsdl:output>
+            <wsdl:fault name="TicketServiceFault"><soap:fault name="TicketServiceFault" use="literal"/></wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="TicketService">
+        <wsdl:port name="TicketServicePort" binding="tns:TicketServiceSoapBinding">
+            <soap:address location="http://localhost:8080/soap-api/ticket"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

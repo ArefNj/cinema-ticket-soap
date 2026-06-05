@@ -1,5 +1,7 @@
 cxf:
   path: /soap-api
 
-
+app:
+  database:
+    path: ./database/cinema.db
 
