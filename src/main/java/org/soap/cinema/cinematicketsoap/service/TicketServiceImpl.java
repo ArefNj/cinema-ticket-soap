@@ -1,19 +1,30 @@
-package org.soap.cinema.cinematicketsoap.service;
+package org.soap.cinema.cinematicketsoap.service; // پکیج خودتان
 
 import jakarta.jws.WebService;
+import org.soap.cinema.cinematicketsoap.model.MovieListResponse;
+import org.soap.cinema.cinematicketsoap.model.ShowTimeListResponse;
+import org.soap.cinema.cinematicketsoap.repository.MockDatabase;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Service
-@WebService(
-        serviceName = "TicketService",
-        portName = "TicketServicePort",
-        targetNamespace = "http://service.ticket.cinema.com/",
-        endpointInterface = "org.soap.cinema.cinematicketsoap.service.TicketService"
-)
+@WebService(endpointInterface = "org.soap.cinema.cinematicketsoap.service.TicketService")
+// آدرس پکیج دقیق اینترفیس خودتان
 public class TicketServiceImpl implements TicketService {
 
     @Override
-    public String bookTicket(String movieName) {
-        return "Ticket successfully reserved for: " + movieName;
+    public MovieListResponse getMovies() {
+
+        return new MovieListResponse(MockDatabase.movies);
+
+    }
+
+    @Override
+    public ShowTimeListResponse getShowTimes(String movieId) {
+        return new ShowTimeListResponse(MockDatabase.showTimes.stream()
+                .filter(showTime -> movieId.equals(showTime.getMovieId()))
+                .toList());
     }
 }
