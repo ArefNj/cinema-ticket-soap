@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="e5b4e103-a888-4ecd-bb83-ad8d5ddc999f" activeEnvironment="Default" name="cinema-ticket" resourceRoot="" soapui-version="5.7.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="5b1c4600-3844-4c2e-8148-934db967e8e3" wsaVersion="NONE" name="TicketServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://service.cinematicketsoap.cinema.soap.org/}TicketServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/soap-api/ticket?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/soap-api/ticket?wsdl"><con:part><con:url>http://localhost:8080/soap-api/ticket?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="TicketServiceImplService" targetNamespace="http://service.cinematicketsoap.cinema.soap.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.cinematicketsoap.cinema.soap.org/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="CancelReservation" type="tns:CancelReservation"/>
+      <xs:element name="CancelReservationResponse" type="tns:CancelReservationResponse"/>
+      <xs:element name="GetMovies" type="tns:GetMovies"/>
+      <xs:element name="GetMoviesResponse" type="tns:GetMoviesResponse"/>
+      <xs:element name="GetReservation" type="tns:GetReservation"/>
+      <xs:element name="GetReservationResponse" type="tns:GetReservationResponse"/>
+      <xs:element name="GetShowTimes" type="tns:GetShowTimes"/>
+      <xs:element name="GetShowTimesResponse" type="tns:GetShowTimesResponse"/>
+      <xs:element name="ReserveSeat" type="tns:ReserveSeat"/>
+      <xs:element name="ReserveSeatResponse" type="tns:ReserveSeatResponse"/>
+      <xs:complexType name="GetMovies">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="GetMoviesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:MovieList"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MovieList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Movie" type="tns:Movie"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Movie">
+        <xs:sequence>
+          <xs:element name="movieId" type="xs:string"/>
+          <xs:element name="title" type="xs:string"/>
+          <xs:element minOccurs="0" name="genre" type="xs:string"/>
+          <xs:element name="duration" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetShowTimes">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="movieId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetShowTimesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ShowTimeList"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ShowTimeList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="ShowTimes" type="tns:ShowTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ShowTime">
+        <xs:sequence>
+          <xs:element name="showTimeId" type="xs:string"/>
+          <xs:element name="movieId" type="xs:string"/>
+          <xs:element name="time" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetReservation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="reservationId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetReservationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:Reservation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Reservation">
+        <xs:sequence>
+          <xs:element name="reservationId" type="xs:string"/>
+          <xs:element name="movieId" type="xs:string"/>
+          <xs:element name="showTimeId" type="xs:string"/>
+          <xs:element name="seatNumber" type="xs:int"/>
+          <xs:element name="customerName" type="xs:string"/>
+          <xs:element name="status" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NoReservationFoundFault">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CancelReservation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="reservationId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CancelReservationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ReservationResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ReservationResponse">
+        <xs:sequence>
+          <xs:element name="reservationId" type="xs:string"/>
+          <xs:element name="status" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ReserveSeat">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="movieId" type="xs:string"/>
+          <xs:element minOccurs="0" name="showTimeId" type="xs:string"/>
+          <xs:element name="seatNumber" type="xs:int"/>
+          <xs:element minOccurs="0" name="customerName" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ReserveSeatResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ReservationResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="NoReservationFoundFault" nillable="true" type="tns:NoReservationFoundFault"/>
+      <xs:element name="DuplicateReservationFault" type="tns:DuplicateReservationFault"/>
+      <xs:complexType name="DuplicateReservationFault">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="DuplicateReservationException">
+    <wsdl:part element="tns:DuplicateReservationFault" name="DuplicateReservationException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetShowTimesResponse">
+    <wsdl:part element="tns:GetShowTimesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CancelReservation">
+    <wsdl:part element="tns:CancelReservation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ReserveSeatResponse">
+    <wsdl:part element="tns:ReserveSeatResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetMoviesResponse">
+    <wsdl:part element="tns:GetMoviesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ReserveSeat">
+    <wsdl:part element="tns:ReserveSeat" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetMovies">
+    <wsdl:part element="tns:GetMovies" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetShowTimes">
+    <wsdl:part element="tns:GetShowTimes" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetReservation">
+    <wsdl:part element="tns:GetReservation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetReservationResponse">
+    <wsdl:part element="tns:GetReservationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CancelReservationResponse">
+    <wsdl:part element="tns:CancelReservationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NoReservationFound">
+    <wsdl:part element="tns:NoReservationFoundFault" name="NoReservationFound"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TicketService">
+    <wsdl:operation name="GetMovies">
+      <wsdl:input message="tns:GetMovies" name="GetMovies"></wsdl:input>
+      <wsdl:output message="tns:GetMoviesResponse" name="GetMoviesResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowTimes">
+      <wsdl:input message="tns:GetShowTimes" name="GetShowTimes"></wsdl:input>
+      <wsdl:output message="tns:GetShowTimesResponse" name="GetShowTimesResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReservation">
+      <wsdl:input message="tns:GetReservation" name="GetReservation"></wsdl:input>
+      <wsdl:output message="tns:GetReservationResponse" name="GetReservationResponse"></wsdl:output>
+      <wsdl:fault message="tns:NoReservationFound" name="NoReservationFound"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelReservation">
+      <wsdl:input message="tns:CancelReservation" name="CancelReservation"></wsdl:input>
+      <wsdl:output message="tns:CancelReservationResponse" name="CancelReservationResponse"></wsdl:output>
+      <wsdl:fault message="tns:NoReservationFound" name="NoReservationFound"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveSeat">
+      <wsdl:input message="tns:ReserveSeat" name="ReserveSeat"></wsdl:input>
+      <wsdl:output message="tns:ReserveSeatResponse" name="ReserveSeatResponse"></wsdl:output>
+      <wsdl:fault message="tns:DuplicateReservationException" name="DuplicateReservationException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TicketServiceImplServiceSoapBinding" type="tns:TicketService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetMovies">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetMovies">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetMoviesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowTimes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetShowTimes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetShowTimesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReservation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetReservation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NoReservationFound">
+        <soap:fault name="NoReservationFound" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelReservation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="CancelReservation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="CancelReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NoReservationFound">
+        <soap:fault name="NoReservationFound" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveSeat">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ReserveSeat">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ReserveSeatResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DuplicateReservationException">
+        <soap:fault name="DuplicateReservationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TicketServiceImplService">
+    <wsdl:port binding="tns:TicketServiceImplServiceSoapBinding" name="TicketServiceImplPort">
+      <soap:address location="http://localhost:8080/soap-api/ticket"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint></con:endpoints><con:operation id="810768be-7d80-4f92-9e74-aa149ef83001" isOneWay="false" action="" name="CancelReservation" bindingOperationName="CancelReservation" type="Request-Response" outputName="CancelReservationResponse" inputName="CancelReservation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="56d3d88e-b41b-4b1a-bb34-7f0351524b75" name="8.CancelReservation"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:CancelReservation>
+            <reservationId>7d1662cc-2c53-4070-a403-d5955615da82</reservationId>
+        </tns:CancelReservation>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/CancelReservation"/><con:wsrmConfig version="1.2"/></con:call><con:call id="5f9a3d9d-95bf-4e9e-98b0-efc09392d83b" name="9.AlreadyCanceled"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:CancelReservation>
+            <reservationId>7d1662cc-2c53-4070-a403-d5955615da82</reservationId>
+        </tns:CancelReservation>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/CancelReservation"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="3b2a8b11-acec-4330-b9c0-53cdfaef08e8" isOneWay="false" action="" name="GetMovies" bindingOperationName="GetMovies" type="Request-Response" outputName="GetMoviesResponse" inputName="GetMovies" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b0d6bb6b-a522-44f6-9ad6-18fb5cf1a68c" name="1.GetMovieList"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:GetMovies/>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>admin</con:username><con:password>1234</con:password><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:addedBasicAuthenticationTypes>NTLM</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/GetMovies"/><con:wsrmConfig version="1.2"/></con:call><con:call id="197e84a0-eb5c-440c-9349-637e0f9c7a8a" name="2.BadAuth"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1111</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:GetMovies/>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>admin</con:username><con:password>1234</con:password><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:addedBasicAuthenticationTypes>NTLM</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/GetMovies"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a17e7825-3ca8-4f74-87d8-38ba8e114a63" isOneWay="false" action="" name="GetReservation" bindingOperationName="GetReservation" type="Request-Response" outputName="GetReservationResponse" inputName="GetReservation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fbbb4608-276b-4ee4-adec-54831509863b" name="6.GetReservation"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:GetReservation>
+            <reservationId>7d1662cc-2c53-4070-a403-d5955615da82</reservationId>
+        </tns:GetReservation>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/GetReservation"/><con:wsrmConfig version="1.2"/></con:call><con:call id="084fc7fd-8542-4366-bcc6-40c0ea18dba7" name="7.ReservationNotFound"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:GetReservation>
+            <reservationId>1</reservationId>
+        </tns:GetReservation>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/GetReservation"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="afb8a6ef-29c2-4215-9a50-ce23c63eeb9c" isOneWay="false" action="" name="GetShowTimes" bindingOperationName="GetShowTimes" type="Request-Response" outputName="GetShowTimesResponse" inputName="GetShowTimes" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c499d15f-6576-45b1-9cc1-1aa6937efd47" name="3.GetShowTime"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:GetShowTimes>
+            <movieId>M101</movieId>
+        </tns:GetShowTimes>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/GetShowTimes"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="266cd9e3-a1d8-4c35-b399-278fd1e5920d" isOneWay="false" action="" name="ReserveSeat" bindingOperationName="ReserveSeat" type="Request-Response" outputName="ReserveSeatResponse" inputName="ReserveSeat" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd8d952d-b225-4278-a5aa-d0958c87da8f" name="4.ReserveSeat"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:ReserveSeat>
+            <movieId>M101</movieId>
+            <showTimeId>ST101</showTimeId>
+            <seatNumber>7</seatNumber>
+            <customerName>Ali</customerName>
+        </tns:ReserveSeat>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/ReserveSeat"/><con:wsrmConfig version="1.2"/></con:call><con:call id="a985630a-34c3-4151-b965-16e5a2543364" name="5.AlreadyReserved"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/ticket</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:tns="http://service.cinematicketsoap.cinema.soap.org/"
+                  xmlns:auth="http://auth.cinema.org/">
+    <soapenv:Header>
+        <auth:AuthenticationHeader>
+            <auth:username>admin</auth:username>
+            <auth:password>1234</auth:password>
+        </auth:AuthenticationHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <tns:ReserveSeat>
+            <movieId>M101</movieId>
+            <showTimeId>ST101</showTimeId>
+            <seatNumber>7</seatNumber>
+            <customerName>Ali</customerName>
+        </tns:ReserveSeat>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.cinematicketsoap.cinema.soap.org/TicketService/ReserveSeat"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:outgoing><con:name>autentication</con:name><con:password>1234</con:password></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
