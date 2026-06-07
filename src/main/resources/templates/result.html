@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Result</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+    .card { background: white; padding: 30px; border-radius: 8px;
+      width: 350px; text-align: center; }
+    .success { color: green; font-size: 48px; }
+    .error { color: red; font-size: 48px; }
+    p { color: #333; }
+    a { color: #333; }
+    button { background: #333; color: white; border: none;
+      padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div th:if="${error}">
+    <div class="error">✗</div>
+    <h2>Reservation Failed</h2>
+    <p th:text="${error}"></p>
+  </div>
+  <div th:if="${reservationId}">
+    <div class="success">✓</div>
+    <h2>Reservation Confirmed!</h2>
+    <p>ID: <strong th:text="${reservationId}"></strong></p>
+    <p>Status: <strong th:text="${status}"></strong></p>
+  </div>
+  <br>
+  <a href="/"><button>Back to Movies</button></a>
+</div>
+</body>
+</html>

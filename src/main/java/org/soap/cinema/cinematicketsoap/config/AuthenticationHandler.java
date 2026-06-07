@@ -73,11 +73,16 @@ public class AuthenticationHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     @Override
-    public boolean handleFault(SOAPMessageContext context) { return true; }
+    public boolean handleFault(SOAPMessageContext context) {
+        return true;
+    }
 
     @Override
-    public void close(MessageContext context) {}
+    public void close(MessageContext context) {
+    }
 
     @Override
-    public Set<QName> getHeaders() { return null; }
+    public Set<QName> getHeaders() {
+        return null;
+    }
 }

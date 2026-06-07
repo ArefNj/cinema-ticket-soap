@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Info</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #333; }
+        .card { background: white; padding: 30px; border-radius: 8px; width: 350px; }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        td:first-child { font-weight: bold; color: #555; }
+        .cancel-btn { background: #c0392b; color: white; border: none;
+            width: 100%; padding: 10px; cursor: pointer;
+            border-radius: 4px; font-size: 16px; margin-top: 16px; }
+        .cancel-btn:hover { background: #e74c3c; }
+        a { color: #333; }
+    </style>
+</head>
+<body>
+<h1>🎟️ Reservation Info</h1>
+<a href="/">← Back to Movies</a>
+<br><br>
+
+<div th:if="${error}" style="color:red" th:text="${error}"></div>
+
+<div class="card" th:if="${reservation}">
+    <table>
+        <tr>
+            <td>Reservation ID</td>
+            <td th:text="${reservation.reservationId}"></td>
+        </tr>
+        <tr>
+            <td>Movie ID</td>
+            <td th:text="${reservation.movieId}"></td>
+        </tr>
+        <tr>
+            <td>ShowTime ID</td>
+            <td th:text="${reservation.showTimeId}"></td>
+        </tr>
+        <tr>
+            <td>Seat</td>
+            <td th:text="${reservation.seatNumber}"></td>
+        </tr>
+        <tr>
+            <td>Customer</td>
+            <td th:text="${reservation.customerName}"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${reservation.status}"></td>
+        </tr>
+    </table>
+
+    <form method="post" action="/cancel">
+        <input type="hidden" name="reservationId" th:value="${reservation.reservationId}"/>
+        <button class="cancel-btn" type="submit">Cancel Reservation</button>
+    </form>
+</div>
+</body>
+</html>

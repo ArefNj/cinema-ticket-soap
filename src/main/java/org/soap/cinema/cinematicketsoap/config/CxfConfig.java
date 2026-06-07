@@ -2,14 +2,12 @@ package org.soap.cinema.cinematicketsoap.config;
 
 
 import jakarta.xml.ws.Endpoint;
-import jakarta.xml.ws.handler.Handler;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.soap.cinema.cinematicketsoap.service.TicketServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration

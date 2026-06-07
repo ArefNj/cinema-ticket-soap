@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserve Seat</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+    h1 { color: #333; }
+    form { background: white; padding: 20px; border-radius: 8px; width: 300px; }
+    input { width: 100%; padding: 8px; margin: 8px 0 16px 0;
+      box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+    button { background: #333; color: white; border: none; width: 100%;
+      padding: 10px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+    button:hover { background: #555; }
+    a { color: #333; }
+  </style>
+</head>
+<body>
+<h1>🎟️ Reserve Seat</h1>
+<a href="/">← Back to Movies</a>
+
+<br><br>
+<form method="post" action="/reserve">
+  <input type="hidden" name="movieId" th:value="${movieId}"/>
+  <input type="hidden" name="showTimeId" th:value="${showTimeId}"/>
+
+  <label>Seat Number:</label>
+  <input type="number" name="seatNumber" min="1" max="100" required/>
+
+  <label>Your Name:</label>
+  <input type="text" name="customerName" required/>
+
+  <button type="submit">Reserve</button>
+</form>
+</body>
+</html>
