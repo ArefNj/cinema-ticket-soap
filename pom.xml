@@ -61,6 +61,25 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
         </dependency>
+        <!-- Spring Data JPA برای ارتباط راحت‌تر با دیتابیس -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- درایور SQLite -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.1.0</version> <!-- می‌توانید از آخرین نسخه استفاده کنید -->
+        </dependency>
+
+        <!-- دیالکت Hibernate برای SQLite (در نسخه‌های جدید معمولا خودکار شناسایی می‌شود، اما اضافه کردن آن توصیه می‌شود) -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-community-dialects</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

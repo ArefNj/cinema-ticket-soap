@@ -1,5 +1,7 @@
 package org.soap.cinema.cinematicketsoap.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -7,7 +9,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Reservation")
+@Entity
 public class Reservation {
+    @Id
     @XmlElement(name = "reservationId", required = true)
     private String reservationId;
     @XmlElement(name = "movieId", required = true)
