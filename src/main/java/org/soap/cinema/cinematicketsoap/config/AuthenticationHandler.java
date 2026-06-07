@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.namespace.QName;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 @Component
@@ -17,27 +18,25 @@ public class AuthenticationHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String VALID_USERNAME = "admin";
     private static final String VALID_PASSWORD = "1234";
     private static final String AUTH_NAMESPACE = "http://auth.cinema.org/";
+    private static final String SOAP_NAMESPACE = "http://schemas.xmlsoap.org/soap/envelope/";
 
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
-        System.out.println("=== AuthenticationHandler called ===");
-        Boolean isOutbound = ((Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY));
-        if (isOutbound) return true;
+        if (isOutbound(context)) return true;
 
         try {
             SOAPHeader header = context.getMessage().getSOAPPart().getEnvelope().getHeader();
 
-
-            Iterator<Node> elements = null;
-            if (header != null) {
-                elements = header.getChildElements(
-                        new QName(AUTH_NAMESPACE, "AuthenticationHeader")
-                );
-                if (!elements.hasNext()) {
-                    throwAuthFault("Missing AuthenticationHeader element");
-                }
-            } else {
+            if (header == null) {
                 throwAuthFault("Missing authentication header");
+            }
+
+            Iterator<Node> elements = Objects.requireNonNull(header).getChildElements(
+                    new QName(AUTH_NAMESPACE, "AuthenticationHeader")
+            );
+
+            if (!elements.hasNext()) {
+                throwAuthFault("Missing AuthenticationHeader element");
             }
 
             SOAPElement authElement = (SOAPElement) elements.next();
@@ -56,12 +55,15 @@ public class AuthenticationHandler implements SOAPHandler<SOAPMessageContext> {
         return true;
     }
 
+    private boolean isOutbound(SOAPMessageContext context) {
+        return Boolean.TRUE.equals(context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY));
+    }
+
     private void throwAuthFault(String message) {
         try {
             SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
-            SOAPBody body = soapMessage.getSOAPBody();
-            SOAPFault fault = body.addFault(
-                    new QName("http://schemas.xmlsoap.org/soap/envelope/", "Client", "soap"),
+            SOAPFault fault = soapMessage.getSOAPBody().addFault(
+                    new QName(SOAP_NAMESPACE, "Client", "soap"),
                     message
             );
             throw new SOAPFaultException(fault);
@@ -71,16 +73,11 @@ public class AuthenticationHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     @Override
-    public boolean handleFault(SOAPMessageContext context) {
-        return true;
-    }
+    public boolean handleFault(SOAPMessageContext context) { return true; }
 
     @Override
-    public void close(MessageContext context) {
-    }
+    public void close(MessageContext context) {}
 
     @Override
-    public Set<QName> getHeaders() {
-        return null;
-    }
+    public Set<QName> getHeaders() { return null; }
 }

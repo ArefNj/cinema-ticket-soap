@@ -17,24 +17,19 @@ public class CxfConfig {
 
     private final Bus bus;
     private final TicketServiceImpl ticketService;
-    private final AuthenticationHandler authenticationHandler; // اضافه کن
+    private final AuthenticationHandler authenticationHandler;
 
     public CxfConfig(Bus bus, TicketServiceImpl ticketService,
-                     AuthenticationHandler authenticationHandler) { // اضافه کن
+                     AuthenticationHandler authenticationHandler) {
         this.bus = bus;
         this.ticketService = ticketService;
-        this.authenticationHandler = authenticationHandler; // اضافه کن
+        this.authenticationHandler = authenticationHandler;
     }
 
     @Bean
     public Endpoint endpoint() {
         EndpointImpl endpoint = new EndpointImpl(bus, ticketService);
-
-        // قبل از publish
-        List<Handler> handlers = new ArrayList<>();
-        handlers.add(authenticationHandler);
-        endpoint.setHandlers(handlers);
-
+        endpoint.setHandlers(List.of(authenticationHandler));
         endpoint.publish("/ticket");
         return endpoint;
     }
