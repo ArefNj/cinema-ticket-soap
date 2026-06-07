@@ -4,6 +4,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import org.soap.cinema.cinematicketsoap.exception.DuplicateReservationException;
+import org.soap.cinema.cinematicketsoap.exception.NoReservationFound;
 import org.soap.cinema.cinematicketsoap.model.MovieListResponse;
 import org.soap.cinema.cinematicketsoap.model.Reservation;
 import org.soap.cinema.cinematicketsoap.model.ReservationResponse;
@@ -26,9 +27,13 @@ public interface TicketService {
             @WebParam(name = "customerName") String customerName
     ) throws DuplicateReservationException;
 
-//    @WebMethod
-//    boolean cancelReservation(@WebParam(name = "reservationId") int reservationId) throws Exception;
-//
-//    @WebMethod
-//    Reservation getReservation(@WebParam(name = "reservationId") int reservationId) throws Exception;
+    @WebMethod(operationName = "CancelReservation")
+    ReservationResponse cancelReservation(
+            @WebParam(name = "reservationId") String reservationId
+    )throws NoReservationFound;
+
+    @WebMethod(operationName = "GetReservation")
+    Reservation getReservation(
+            @WebParam(name = "reservationId") String reservationId
+    ) throws NoReservationFound;
 }
