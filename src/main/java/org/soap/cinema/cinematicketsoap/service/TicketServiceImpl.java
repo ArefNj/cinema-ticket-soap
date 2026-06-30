@@ -1,4 +1,4 @@
-package org.soap.cinema.cinematicketsoap.service; // پکیج خودتان
+package org.soap.cinema.cinematicketsoap.service;
 
 import jakarta.jws.WebService;
 import org.soap.cinema.cinematicketsoap.exception.DuplicateReservationException;
@@ -18,7 +18,6 @@ import java.util.UUID;
 
 @Service
 @WebService(endpointInterface = "org.soap.cinema.cinematicketsoap.service.TicketService")
-// آدرس پکیج دقیق اینترفیس خودتان
 public class TicketServiceImpl implements TicketService {
 
     private final MovieRepository movieRepository;

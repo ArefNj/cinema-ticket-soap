@@ -37,3 +37,5 @@ build/
 cinema.db
 
 *.db
+
+REPORT.md
